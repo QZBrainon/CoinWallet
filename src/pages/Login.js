@@ -39,7 +39,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { isDisabled } = this.state;
+    const { isDisabled, email, password } = this.state;
     return (
       <div>
         <label htmlFor="email">
@@ -48,6 +48,7 @@ class Login extends React.Component {
             type="email"
             data-testid="email-input"
             id="email"
+            value={ email }
             onChange={ this.handleChange }
           />
         </label>
@@ -58,6 +59,7 @@ class Login extends React.Component {
             id="password"
             data-testid="password-input"
             minLength="6"
+            value={ password }
             onChange={ this.handleChange }
           />
         </label>
@@ -86,3 +88,6 @@ Login.propTypes = {
 };
 
 export default connect(null, mapDispatchToProps)(Login);
+
+// desafios: email estava sendo passado como prop inves de state e propType
+// do history estava quebrando o código
