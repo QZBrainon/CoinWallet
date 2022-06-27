@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import saveEmail from '../actions';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
   state={
@@ -40,6 +40,7 @@ class Login extends React.Component {
 
   render() {
     const { isDisabled, email, password } = this.state;
+    console.log(this.props);
     return (
       <div>
         <label htmlFor="email">
