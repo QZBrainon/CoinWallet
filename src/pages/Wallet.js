@@ -39,6 +39,26 @@ class Wallet extends React.Component {
     });
   }
 
+  createTableData = () => {
+    const { expenses } = this.props;
+    return (
+      expenses.map(({ value, exchangeRates, currency, description, method, tag, id }) => (
+        <tr key={ id }>
+          <td>{description}</td>
+          <td>{tag}</td>
+          <td>{method}</td>
+          <td>{Number(value).toFixed(2)}</td>
+          <td>{exchangeRates[currency].name.split('/', 1)[0]}</td>
+          <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+          <td>{Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
+          <td>{description}</td>
+          <td>Real</td>
+          <td>Excluir</td>
+        </tr>
+      ))
+    );
+  }
+
   render() {
     const { coins } = this.props;
     const { value, description, currency, method, tag } = this.state;
@@ -120,33 +140,38 @@ class Wallet extends React.Component {
           <button type="button" onClick={ this.clickHandler }>Adicionar despesa</button>
         </form>
         <table>
-          <th>
-            Descrição
-          </th>
-          <th>
-            Tag
-          </th>
-          <th>
-            Método de pagamento
-          </th>
-          <th>
-            Valor
-          </th>
-          <th>
-            Moeda
-          </th>
-          <th>
-            Câmbio utilizado
-          </th>
-          <th>
-            Valor convertido
-          </th>
-          <th>
-            Moeda de conversão
-          </th>
-          <th>
-            Editar/Excluir
-          </th>
+          <tr>
+            <th>
+              Descrição
+            </th>
+            <th>
+              Tag
+            </th>
+            <th>
+              Método de pagamento
+            </th>
+            <th>
+              Valor
+            </th>
+            <th>
+              Moeda
+            </th>
+            <th>
+              Câmbio utilizado
+            </th>
+            <th>
+              Valor convertido
+            </th>
+            <th>
+              Moeda de conversão
+            </th>
+            <th>
+              Editar/Excluir
+            </th>
+          </tr>
+          {
+            this.createTableData()
+          }
         </table>
       </div>
     );
@@ -157,11 +182,13 @@ Wallet.propTypes = {
   dispatch: PropTypes.func.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
   numberOfExpenses: PropTypes.number.isRequired,
+  expenses: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   coins: state.wallet.currencies,
   numberOfExpenses: state.wallet.expenses.length,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Wallet);
