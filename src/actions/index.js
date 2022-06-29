@@ -23,6 +23,11 @@ export const saveExpenses = (expenses) => ({
   expenses,
 });
 
+export const deleteAction = (expenses) => ({
+  type: 'DELETE_ITEM',
+  expenses,
+});
+
 // export const saveCotation = (cotation) => ({
 //   type: 'SAVE_COTATION',
 //   cotation,
